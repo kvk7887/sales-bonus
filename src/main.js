@@ -41,17 +41,17 @@ function analyzeSalesData(data, options) {
     if (!data || typeof data !== "object") {
         throw new Error("Некорректные данные");
     }
-    if (!Array.isArray(data.sellers)) {
+    if (!Array.isArray(data.sellers) || data.seller.length === 0) {
         throw new Error(
-            "Ошибка при пустом массиве sellers"
+            "Ошибка при пустом массиве purchase_records"
         );
     }
-    if (!Array.isArray(data.products)) {
+    if (!Array.isArray(data.products) || data.products.length === 0) {
         throw new Error(
             "Ошибка при пустом массиве products"
         );
     }
-    if (!Array.isArray(data.purchase_records)) {
+    if (!Array.isArray(data.purchase_records) || data.purchase_records.length === 0) {
         throw new Error(
             "Ошибка при пустом массиве purchase_records"
         );
