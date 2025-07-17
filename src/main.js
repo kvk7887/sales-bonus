@@ -41,7 +41,7 @@ function analyzeSalesData(data, options) {
     if (!data || typeof data !== "object") {
         throw new Error("Некорректные данные");
     }
-    if (!Array.isArray(data.sellers) || data.seller.length === 0) {
+    if (!Array.isArray(data.sellers) || data.sellers.length === 0) {
         throw new Error(
             "Ошибка при пустом массиве purchase_records"
         );
