@@ -88,10 +88,18 @@ function analyzeSalesData(data, options) {
   // @TODO: Расчет выручки и прибыли для каждого продавца
   data.purchase_records.forEach((record) => {
     const seller = sellerIndex[record.seller_id]; //Получаем продавца
+    if (!seller) {
+      console.warn(`Продавец с id ${record.seller_id} не найден`);
+      return;
+    }
     seller.sales_count += 1; // Увеличиваем кол-во продаж на 1
     seller.revenue += record.total_amount; // Увеличиваем общую сумму выручки на сумму чека
     //Перебор товаров в чеке
     record.items.forEach((item) => {
+        if (!product) {
+            // Пропускаем неизвестные товары
+            return;
+        }
       const product = productIndex[item.sku]; // Получаем товар из индекса
       const cost = product.purchase_price * item.quantity; // Себестоимость товара= закупочная цена * кол-во
       const revenue = calculateRevenue(item); // выручка с учетом скидки
