@@ -11,7 +11,7 @@ function calculateSimpleRevenue(purchase, _product) {
     const discountDecimal = discount / 100;
     const fullPrice = sale_price * quantity;
     const revenue = fullPrice * (1 - discountDecimal);
-    return Number(revenue.toFixed(2));
+    return revenue;
 }
 
 /**
@@ -109,7 +109,7 @@ function analyzeSalesData(data, options) {
                 // Пропускаем неизвестные товары
                 return;
             }
-            const cost = (product.purchase_price * item.quantity).toFixed(2); // Себестоимость товара= закупочная цена * кол-во
+            const cost = product.purchase_price * item.quantity; // Себестоимость товара= закупочная цена * кол-во
             const revenue = calculateRevenue(item); // выручка с учетом скидки
             const profit = revenue - cost; // прибыль = выручка - себестоимость
             seller.profit += profit; // увеличиваем общую прибыль продавца
