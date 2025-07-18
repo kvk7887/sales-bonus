@@ -142,14 +142,14 @@ function analyzeSalesData(data, options) {
         return Math.round((num + Number.EPSILON) * 100) / 100;
       }
 
-    return sellerStats.map((seller) => ({
+      return sellerStats.map(seller => ({
         seller_id: String(seller.id),
         name: `${seller.first_name} ${seller.last_name}`,
-        revenue: Number(seller.revenue.toFixed(2)),
-        profit: Number(seller.profit.toFixed(2)),
+        revenue: round2(seller.revenue),
+        profit: round2(seller.profit),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
         top_3_products: seller.top_3_products,
         bonus: round2(seller.bonus),
-    }));
+      }));
 }
