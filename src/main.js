@@ -29,7 +29,7 @@ function calculateBonusByProfit(index, total, seller) {
     else if (index === 1 || index === 2) bonus = profit * 0.1;
     else if (index === total - 1) bonus = 0;
     else bonus = profit * 0.05;
-    return Math.round((bonus + Number.EPSILON) * 100) / 100;
+    return round2(bonus);
 }
     
 
@@ -133,16 +133,12 @@ function analyzeSalesData(data, options) {
         .map(([sku, quantity]) => ({ sku, quantity }))
         .sort((a, b) => b.quantity - a.quantity)
         .slice(0, 10);
-        seller.top_3_products = seller.top_products.slice(0, 3);
+       // seller.top_3_products = seller.top_products.slice(0, 3);
     });
     
 
     // @TODO: Подготовка итоговой коллекции с нужными полями
-    function round2(num) {
-        return Math.round((num + Number.EPSILON) * 100) / 100;
-      }
-
-      return sellerStats.map(seller => ({
+    return sellerStats.map(seller => ({
         seller_id: String(seller.id),
         name: `${seller.first_name} ${seller.last_name}`,
         revenue: round2(seller.revenue),
@@ -151,5 +147,9 @@ function analyzeSalesData(data, options) {
         top_products: seller.top_products,
         top_3_products: seller.top_3_products,
         bonus: round2(seller.bonus),
-      }));
+    }));
+}
+
+function round2(num) {
+    return Math.round((num + Number.EPSILON) * 100) / 100;
 }
