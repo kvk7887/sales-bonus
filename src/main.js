@@ -138,6 +138,10 @@ function analyzeSalesData(data, options) {
     
 
     // @TODO: Подготовка итоговой коллекции с нужными полями
+    function round2(num) {
+        return Math.round((num + Number.EPSILON) * 100) / 100;
+      }
+
     return sellerStats.map((seller) => ({
         seller_id: String(seller.id),
         name: `${seller.first_name} ${seller.last_name}`,
@@ -146,6 +150,6 @@ function analyzeSalesData(data, options) {
         sales_count: seller.sales_count,
         top_products: seller.top_products,
         top_3_products: seller.top_3_products,
-        bonus: Number(seller.bonus.toFixed(2)),
+        bonus: round2(seller.bonus),
     }));
 }
