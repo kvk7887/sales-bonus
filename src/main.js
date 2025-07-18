@@ -141,11 +141,11 @@ function analyzeSalesData(data, options) {
     return sellerStats.map((seller) => ({
         seller_id: String(seller.id),
         name: `${seller.first_name} ${seller.last_name}`,
-        revenue: seller.revenue.toFixed(2),
-        profit: seller.profit.toFixed(2),
+        revenue: Number(seller.revenue.toFixed(2)),
+        profit: Number(seller.profit.toFixed(2)),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
         top_3_products: seller.top_3_products,
-        bonus: seller.bonus.toFixed(2),
+        bonus: Number(seller.bonus.toFixed(2)),
     }));
 }
