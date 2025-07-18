@@ -30,8 +30,7 @@ function calculateBonusByProfit(index, total, seller) {
     else if (index === total - 1) bonus = 0;
     else bonus = profit * 0.05;
     return +bonus.toFixed(2);
-    
-    }
+}
     
 
 /**
@@ -99,7 +98,7 @@ function analyzeSalesData(data, options) {
     data.purchase_records.forEach((record) => {
         const seller = sellerIndex[record.seller_id]; //Получаем продавца
         if (!seller) {
-        return;
+            return;
         }
         seller.sales_count += 1; // Увеличиваем кол-во продаж на 1
         seller.revenue += record.total_amount; // Увеличиваем общую сумму выручки на сумму чека
@@ -110,7 +109,7 @@ function analyzeSalesData(data, options) {
                 // Пропускаем неизвестные товары
                 return;
             }
-            const cost = product.purchase_price * item.quantity; // Себестоимость товара= закупочная цена * кол-во
+            const cost = (product.purchase_price * item.quantity).toFixed(2); // Себестоимость товара= закупочная цена * кол-во
             const revenue = calculateRevenue(item); // выручка с учетом скидки
             const profit = revenue - cost; // прибыль = выручка - себестоимость
             seller.profit += profit; // увеличиваем общую прибыль продавца
@@ -142,11 +141,11 @@ function analyzeSalesData(data, options) {
     return sellerStats.map((seller) => ({
         seller_id: String(seller.id),
         name: `${seller.first_name} ${seller.last_name}`,
-        revenue: +seller.revenue.toFixed(2),
-        profit: +(Math.round(seller.profit * 100) / 100),
+        revenue: seller.revenue.toFixed(2),
+        profit: seller.profit.toFixed(2),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
         top_3_products: seller.top_3_products,
-        bonus: +seller.bonus.toFixed(2),
+        bonus: seller.bonus.toFixed(2),
     }));
 }
