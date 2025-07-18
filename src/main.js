@@ -30,7 +30,9 @@ function calculateBonusByProfit(index, total, seller) {
     else if (index === total - 1) bonus = 0;
     else bonus = profit * 0.05;
     return +bonus.toFixed(2);
-}
+    
+    }
+    
 
 /**
  * Функция для анализа данных продаж
@@ -134,13 +136,14 @@ function analyzeSalesData(data, options) {
         .slice(0, 10);
         seller.top_3_products = seller.top_products.slice(0, 3);
     });
+    
 
     // @TODO: Подготовка итоговой коллекции с нужными полями
     return sellerStats.map((seller) => ({
         seller_id: String(seller.id),
         name: `${seller.first_name} ${seller.last_name}`,
         revenue: +seller.revenue.toFixed(2),
-        profit: +seller.profit.toFixed(2),
+        profit: +(Math.round(seller.profit * 100) / 100),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
         top_3_products: seller.top_3_products,
