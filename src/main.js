@@ -29,7 +29,7 @@ function calculateBonusByProfit(index, total, seller) {
     else if (index === 1 || index === 2) bonus = profit * 0.1;
     else if (index === total - 1) bonus = 0;
     else bonus = profit * 0.05;
-    return +bonus.toFixed(2);
+    return Math.round((bonus + Number.EPSILON) * 100) / 100;
 }
     
 
